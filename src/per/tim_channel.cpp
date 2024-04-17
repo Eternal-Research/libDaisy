@@ -1,10 +1,10 @@
 #include "tim_channel.h"
 #include "per/gpio.h"
-#include "util/hal_map.h"
 
-// forward declare for compat with private hal defs
 extern "C"
 {
+    #include "util/hal_map.h"
+    // forward declare for compat with private hal defs
     void TIM_DMADelayPulseCplt(DMA_HandleTypeDef *hdma);
 }
 
@@ -323,15 +323,15 @@ void TimChannel::Init(const TimChannel::Config& cfg)
     auto af_value = SetInstance(&globaltim, cfg.tim->GetConfig().periph);
     HAL_TIM_PWM_ConfigChannel(&globaltim, &sConfigOC, chn);
 
-    TIM_BreakDeadTimeConfigTypeDef sBreakDeadTimeConfig;
-    sBreakDeadTimeConfig.OffStateRunMode  = TIM_OSSR_DISABLE;
-    sBreakDeadTimeConfig.OffStateIDLEMode = TIM_OSSI_DISABLE;
-    sBreakDeadTimeConfig.LockLevel        = TIM_LOCKLEVEL_OFF;
-    sBreakDeadTimeConfig.DeadTime         = 0;
-    sBreakDeadTimeConfig.BreakState       = TIM_BREAK_DISABLE;
-    sBreakDeadTimeConfig.BreakPolarity    = TIM_BREAKPOLARITY_HIGH;
-    sBreakDeadTimeConfig.AutomaticOutput  = TIM_AUTOMATICOUTPUT_DISABLE;
-    HAL_TIMEx_ConfigBreakDeadTime(&globaltim, &sBreakDeadTimeConfig);
+    // TIM_BreakDeadTimeConfigTypeDef sBreakDeadTimeConfig;
+    // sBreakDeadTimeConfig.OffStateRunMode  = TIM_OSSR_DISABLE;
+    // sBreakDeadTimeConfig.OffStateIDLEMode = TIM_OSSI_DISABLE;
+    // sBreakDeadTimeConfig.LockLevel        = TIM_LOCKLEVEL_OFF;
+    // sBreakDeadTimeConfig.DeadTime         = 0;
+    // sBreakDeadTimeConfig.BreakState       = TIM_BREAK_DISABLE;
+    // sBreakDeadTimeConfig.BreakPolarity    = TIM_BREAKPOLARITY_HIGH;
+    // sBreakDeadTimeConfig.AutomaticOutput  = TIM_AUTOMATICOUTPUT_DISABLE;
+    // HAL_TIMEx_ConfigBreakDeadTime(&globaltim, &sBreakDeadTimeConfig);
 
     /** TODO: remove conversion to old pin, and add hal map for new Pin type */
     dsy_gpio_pin  tpin = cfg.pin;
