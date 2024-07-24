@@ -363,18 +363,14 @@ const TimChannel::Config& TimChannel::GetConfig() const
 
 void TimChannel::Start()
 {
-    // dsy_gpio_pin  tpin = cfg_.pin;
-    // GPIO_TypeDef* port = dsy_hal_map_get_port(&tpin);
-    // gpio_init.Mode = GPIO_MODE_AF_PP;
     HAL_TIM_PWM_Start(&globaltim, GetHalChannel(cfg_.chn));
 }
+
 void TimChannel::Stop()
 {
-    // dsy_gpio_pin  tpin = cfg_.pin;
-    // GPIO_TypeDef* port = dsy_hal_map_get_port(&tpin);
-    // gpio_init.Mode = GPIO_MODE_OUTPUT_PP;
     HAL_TIM_PWM_Stop(&globaltim, GetHalChannel(cfg_.chn));
 }
+
 void TimChannel::SetPwm(uint32_t val)
 {
     __HAL_TIM_SET_COMPARE(&globaltim, GetHalChannel(cfg_.chn), val);
@@ -508,8 +504,6 @@ void TimChannel::initDma()
 
 extern "C" void DMA2_Stream5_IRQHandler(void)
 {
-    // DMA_HandleTypeDef timhdma;
-    // timhdma.Instance = DMA2_Stream5;
     HAL_DMA_IRQHandler(&timhdma);
 }
 
